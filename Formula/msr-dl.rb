@@ -3,9 +3,9 @@ class MsrDl < Formula
 
   desc "Download Monster Siren albums with metadata and synchronized lyrics"
   homepage "https://github.com/tsuru-kiri/msr-dl"
-  url "https://github.com/tsuru-kiri/msr-dl/releases/download/v0.1.3/msr_dl-0.1.3.tar.gz"
-  version "0.1.3"
-  sha256 "5094862fe572bb9dfe3dc60a6d2959c447f59e4c8f9828ca5f2b6593ea1a4e09"
+  url "https://github.com/tsuru-kiri/msr-dl/releases/download/v0.1.4/msr_dl-0.1.4.tar.gz"
+  version "0.1.4"
+  sha256 "b82a6ad32c17b7002785f853548f0012aed6c8016f093e342bcd085c27f25837"
 
   depends_on "ffmpeg"
   depends_on :macos
