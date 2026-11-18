@@ -1,0 +1,49 @@
+name: Update ente-cli
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily; upstream releases on Wednesdays around 09:15 UTC.
+    - cron: "0 12 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-ente-cli
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Bump formula
+        id: bump
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/update-ente-cli.sh Formula/ente-cli.rb
+
+      - name: Smoke test linux-amd64 binary
+        if: steps.bump.outputs.version != ''
+        env:
+          VERSION: ${{ steps.bump.outputs.version }}
+        run: |
+          set -euo pipefail
+          asset="ente-cli-v$VERSION-linux-amd64.tar.gz"
+          curl -fsSL -o "$RUNNER_TEMP/$asset" "https://github.com/ente/ente/releases/download/ente-cli-v$VERSION/$asset"
+          expected=$(sed -nE "/-linux-amd64\.tar\.gz/{n;s/.*sha256 \"([0-9a-f]+)\".*/\1/p;}" Formula/ente-cli.rb)
+          echo "$expected  $RUNNER_TEMP/$asset" | sha256sum -c -
+          tar -xzf "$RUNNER_TEMP/$asset" -C "$RUNNER_TEMP"
+          [[ "$("$RUNNER_TEMP/ente" --version)" == "ente $VERSION" ]]
+
+      - name: Commit and push
+        if: steps.bump.outputs.version != ''
+        env:
+          VERSION: ${{ steps.bump.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898900+github-actions[bot]@users.noreply.github.com"
+          git commit -am "ente-cli v$VERSION"
+          git push
