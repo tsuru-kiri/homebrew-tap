@@ -1,7 +1,7 @@
 class EnteCli < Formula
   desc "Ente's new CLI for terminals and agents"
   homepage "https://ente.com/help/cli/"
-  version "0.4.4"
+  version "0.4.5"
   license "AGPL-3.0-only"
 
   livecheck do
@@ -13,22 +13,22 @@ class EnteCli < Formula
   on_macos do
     on_arm do
       url "https://github.com/ente/ente/releases/download/ente-cli-v#{version}/ente-cli-v#{version}-macos-arm64.tar.gz"
-      sha256 "df4c3da7fdf120d71b33bb10a0a8015bbac67a6669f303ecf887f7045c51d47f"
+      sha256 "36606ae6d9713d4b9768713a58b5f0be1e6f55a804aa9ff47ab2c2c81d0c4219"
     end
     on_intel do
       url "https://github.com/ente/ente/releases/download/ente-cli-v#{version}/ente-cli-v#{version}-macos-amd64.tar.gz"
-      sha256 "d5df84f305b4b61901c946a57cc96d3296eb8e0d47911897da9f4331bb028ff6"
+      sha256 "8d416f09d683411e8d12ac4ff3cf287bfb6426353847eab6c4378b0aebc1bbca"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/ente/ente/releases/download/ente-cli-v#{version}/ente-cli-v#{version}-linux-arm64.tar.gz"
-      sha256 "c51e5ece5617ad7bb4cf6148c6a58b4364db448f7b1594c00b250efc88e40735"
+      sha256 "721ad071c8a4aba138b6132cf13bbd30800d68ce4f29711d259e492236c2810c"
     end
     on_intel do
       url "https://github.com/ente/ente/releases/download/ente-cli-v#{version}/ente-cli-v#{version}-linux-amd64.tar.gz"
-      sha256 "719834d6b65e9e48a4a1d4e3e577247633f0e8a5eb2bae30278ec6c6fc536f17"
+      sha256 "4890dc2b27510d0e2f9e7ee5d47bf1f274e145f79d5557aef1d24b3103fadbbe"
     end
   end
 
